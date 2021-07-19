@@ -15,7 +15,7 @@ jobs:
       - name: Log in to GitHub Docker Registry
         uses: docker/login-action@v1
         with:
-          registry: docker.pkg.github.com
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - id: docker-tag
@@ -25,5 +25,5 @@ jobs:
         with:
           push: true
           tags: |
-            docker.pkg.github.com/${{ github.repository }}/slapd-simple:${{ github.sha }}
-            docker.pkg.github.com/${{ github.repository }}/slapd-simple:${{ steps.docker-tag.outputs.tag }}
+            ghcr.io/${{ github.repository }}/slapd-simple:${{ github.sha }}
+            ghcr.io/${{ github.repository }}/slapd-simple:${{ steps.docker-tag.outputs.tag }}
