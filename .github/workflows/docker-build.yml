@@ -18,10 +18,12 @@ jobs:
           registry: docker.pkg.github.com
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - id: docker-tag
+        uses: yuya-takeyama/docker-tag-from-github-ref-action@v1
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: |
             docker.pkg.github.com/${{ github.repository }}/slapd-simple:${{ github.sha }}
-            docker.pkg.github.com/${{ github.repository }}/slapd-simple:${{ github.ref }}
+            docker.pkg.github.com/${{ github.repository }}/slapd-simple:${{ steps.docker-tag.outputs.tag }}
